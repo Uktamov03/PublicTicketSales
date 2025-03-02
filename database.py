@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 
 def get_db_connection():
     """Database connection string from environment variable"""
-    url = urlparse(os.getenv('DATABASE_URL'))
+    url = urlparse(os.getenv('postgresql://hamza_decor_user:v8NUzd9mVqJeLyCM1s1mnFNDREuDxW55@dpg-cv2720rtq21c73ddu3og-a/hamza_decor'))
     connection = psycopg2.connect(
         database=url.path[1:],
         user=url.username,
