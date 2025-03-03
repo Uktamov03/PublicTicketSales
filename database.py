@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 from urllib.parse import urlparse
 
-ef get_db_connection():
+def get_db_connection():
     """Database connection string from environment variable"""
     db_url = os.getenv('postgresql://postgres:kswjfmPjCelLAMRbhGpKIzAxeXdlLWvU@postgres.railway.internal:5432/railway')
     if db_url:
