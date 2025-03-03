@@ -3,21 +3,22 @@ import pandas as pd
 from datetime import datetime
 from urllib.parse import urlparse
 
-# Railway PostgreSQL DATABASE URL
-DATABASE_URL = "postgresql://postgres:kswjfmPjCelLAMRbhGpKIzAxeXdlLWvU@postgres.railway.internal:5432/railway"
-
-def get_db_connection():
-    """PostgreSQL bazasiga to‘g‘ridan-to‘g‘ri ulanish"""
-    url = urlparse(DATABASE_URL)
-
-    connection = psycopg2.connect(
-        database=url.path[1:],  # "/railway" -> "railway"
-        user=url.username,
-        password=url.password,
-        host=url.hostname,
-        port=url.port
-    )
-    print("✅ PostgreSQL bazasiga muvaffaqiyatli ulandi!")
+ef get_db_connection():
+    """Database connection string from environment variable"""
+    db_url = os.getenv('postgresql://postgres:kswjfmPjCelLAMRbhGpKIzAxeXdlLWvU@postgres.railway.internal:5432/railway')
+    if db_url:
+        # To'g'ridan-to'g'ri URL bilan ulanish
+        connection = psycopg2.connect(db_url)
+    else:
+        # URL mavjud emas bo'lsa eski usul bilan ulanish
+        url = urlparse(os.getenv('postgresql://postgres:kswjfmPjCelLAMRbhGpKIzAxeXdlLWvU@postgres.railway.internal:5432/railway'))
+        connection = psycopg2.connect(
+            database=url.path[1:],
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port
+        )
     return connection
 
 # Ulanishni tekshirish
